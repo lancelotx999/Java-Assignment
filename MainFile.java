@@ -59,7 +59,7 @@ public class MainFile
 		System.out.println("User Access Level: " + Alpha.UserRole);
 		System.in.read();
 
-		ProgramList.SaveList(ProgramList.ProgramName, ProgramList.ProgramCode, ProgramList.ProgramMajor, ProgramList.ProgramAbbreviation, ProgramUnit.NumberOfProgram,ProgramList.UnitName, ProgramList.UnitCode, ProgramList.AffliatedProgramNumber, ProgramList.UnitType, ProgramList.CoRequisiteUnitCode, ProgramList.PreRequisiteUnitCode, ProgramList.UnitMajor);
+		ProgramList.PopulateList(ProgramList.ProgramName, ProgramList.ProgramCode, ProgramList.ProgramMajor, ProgramList.ProgramAbbreviation, ProgramUnit.NumberOfProgram,ProgramList.UnitName, ProgramList.UnitCode, ProgramList.AffliatedProgramNumber, ProgramList.UnitType, ProgramList.CoRequisiteUnitCode, ProgramList.PreRequisiteUnitCode, ProgramList.UnitMajor);
 		System.out.print('\f');
 
 		if(Alpha.UserRole.equals("ADMIN"))

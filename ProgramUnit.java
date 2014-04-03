@@ -617,6 +617,7 @@ public class ProgramUnit
         static void SaveList(ArrayList <String> ProgramName, ArrayList <String> ProgramCode, ArrayList <String> ProgramMajor, ArrayList <String> ProgramAbbreviation, int NumberOfProgram, ArrayList <String> UnitName, ArrayList <String> UnitCode, ArrayList <Integer> AffliatedProgramNumber, ArrayList <String> UnitType,  ArrayList <String> CoRequisiteUnitCode,  ArrayList <String> PreRequisiteUnitCode, ArrayList <String> UnitMajor)
         throws BiffException, IOException, WriteException
         {
+
             WritableWorkbook ExcelWorkbook = Workbook.createWorkbook(new File("Lib.xls"));
             WritableSheet ProgramSheet = ExcelWorkbook.createSheet("Program Sheet", 0);
             WritableSheet UnitSheet = ExcelWorkbook.createSheet("Unit Sheet", 1);
@@ -624,7 +625,7 @@ public class ProgramUnit
             int i = 0;
 
             for(i = 0; i < ProgramName.size(); i++)
-            {
+            {   
                 Label SaveProgramCode = new Label(0, i + 1, ProgramCode.get(i));
                 Label SaveProgramName = new Label(1, i + 1, ProgramName.get(i));
                 Label SaveProgramMajor = new Label(2, i + 1, ProgramMajor.get(i));
@@ -652,8 +653,7 @@ public class ProgramUnit
                 UnitSheet.addCell(SaveUnitCoRequisiteUnitCode);
                 UnitSheet.addCell(SaveUnitPreRequisiteUnitCode);
             }
-
-            ExcelWorkbook.write(); 
+            ExcelWorkbook.write();      
             ExcelWorkbook.close(); 
             
         }
