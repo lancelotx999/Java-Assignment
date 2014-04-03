@@ -323,10 +323,10 @@ public class ProgramUnit
                 UnitType.add(sc.nextLine());
 
                 System.out.println("Enter New Unit Co-requisite Unit Code. (If Any, Else Enter NULL)");
-                CoRequisiteUnitCode.add(sc.nextLine());
+                CoRequisiteUnitCode.add(sc.nextLine().toUpperCase());
 
                 System.out.println("Enter New Unit Pre-requisite Unit Code. (If Any, Else Enter Null.)");
-                PreRequisiteUnitCode.add(sc.nextLine());
+                PreRequisiteUnitCode.add(sc.nextLine().toUpperCase());
 
                 System.out.print('\f');
 
