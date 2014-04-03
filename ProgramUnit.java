@@ -302,7 +302,7 @@ public class ProgramUnit
             return NumberOfProgram;
         } 
 
-        public int DevelopNewUnit(ArrayList <String> UnitName, ArrayList <String> UnitCode, ArrayList <Integer> AffliatedProgramNumber, int NumberOfUnit, String Role, ArrayList <String> UnitMajor, ArrayList <String> UnitType)
+        public int DevelopNewUnit(ArrayList <String> UnitName, ArrayList <String> UnitCode, ArrayList <Integer> AffliatedProgramNumber, int NumberOfUnit, String Role, ArrayList <String> UnitMajor, ArrayList <String> UnitType, ArrayList <String> PreRequisiteUnitCode, ArrayList <String> CoRequisiteUnitCode)
         {
         	System.out.print('\f');
             if (Role.equals("ADMIN"))
@@ -319,8 +319,14 @@ public class ProgramUnit
                 System.out.println("Enter New Unit Major. (Enter Abbreviation Of Unit Major.)");
                 UnitMajor.add(sc.nextLine());
 
-                System.out.println("Enter New Unit Type. (Core, Major Or Elective.");
+                System.out.println("Enter New Unit Type. (Core, Major Or Elective.)");
                 UnitType.add(sc.nextLine());
+
+                System.out.println("Enter New Unit Co-requisite Unit Code. (If Any, Else Enter NULL)");
+                CoRequisiteUnitCode.add(sc.nextLine());
+
+                System.out.println("Enter New Unit Pre-requisite Unit Code. (If Any, Else Enter Null.)");
+                PreRequisiteUnitCode.add(sc.nextLine());
 
                 System.out.print('\f');
 
@@ -541,14 +547,10 @@ public class ProgramUnit
             }
         }
 
-        public int ListSpecificUnit(ArrayList <String> ProgramName, ArrayList <String> ProgramCode, int NumberOfProgram,ArrayList <String> UnitName, ArrayList <String> UnitCode, int NumberOfUnit, ArrayList <String> UnitMajor, ArrayList <String> UnitType, ArrayList <String> PreRequisiteUnitCode, ArrayList <String> CoRequisiteUnitCode)
+        public void ListSpecificUnit(ArrayList <String> ProgramName, ArrayList <String> ProgramCode, int NumberOfProgram,ArrayList <String> UnitName, ArrayList <String> UnitCode, int NumberOfUnit, ArrayList <String> UnitMajor, ArrayList <String> UnitType, ArrayList <String> PreRequisiteUnitCode, ArrayList <String> CoRequisiteUnitCode, int InspectNumber)
         {
         	int Valid = 0;
-        	int InspectNumber;
         	int UnitNumber = 0;
-            System.out.println("Enter The Number Of The Unit That You Wish To View.");
-           	InspectNumber = sc.nextInt();
-           	sc.nextLine();
 
             do
         	{
@@ -586,8 +588,6 @@ public class ProgramUnit
                 }
                 UnitNumber++;
             }while(UnitNumber != NumberOfUnit);
-
-            return InspectNumber;
         }
 
         public void ListRelatedPrograms(ArrayList <String> ProgramName, ArrayList <String> ProgramCode, int NumberOfProgram,ArrayList <String> UnitName, ArrayList <String> UnitCode, int NumberOfUnit, ArrayList <String> UnitMajor, ArrayList <String> UnitType, int InspectNumber)
@@ -612,5 +612,49 @@ public class ProgramUnit
                 }
                 ProgramNumber ++;
             } while(ProgramNumber != NumberOfProgram);
+        }
+
+        static void SaveList(ArrayList <String> ProgramName, ArrayList <String> ProgramCode, ArrayList <String> ProgramMajor, ArrayList <String> ProgramAbbreviation, int NumberOfProgram, ArrayList <String> UnitName, ArrayList <String> UnitCode, ArrayList <Integer> AffliatedProgramNumber, ArrayList <String> UnitType,  ArrayList <String> CoRequisiteUnitCode,  ArrayList <String> PreRequisiteUnitCode, ArrayList <String> UnitMajor)
+        throws BiffException, IOException, WriteException
+        {
+            WritableWorkbook ExcelWorkbook = Workbook.createWorkbook(new File("Lib.xls"));
+            WritableSheet ProgramSheet = ExcelWorkbook.createSheet("Program Sheet", 0);
+            WritableSheet UnitSheet = ExcelWorkbook.createSheet("Unit Sheet", 1);
+
+            int i = 0;
+
+            for(i = 0; i < ProgramName.size(); i++)
+            {
+                Label SaveProgramCode = new Label(0, i + 1, ProgramCode.get(i));
+                Label SaveProgramName = new Label(1, i + 1, ProgramName.get(i));
+                Label SaveProgramMajor = new Label(2, i + 1, ProgramMajor.get(i));
+                Label SaveProgramAbbreviation = new Label(3, i + 1, ProgramAbbreviation.get(i));
+
+                ProgramSheet.addCell(SaveProgramCode);
+                ProgramSheet.addCell(SaveProgramName);
+                ProgramSheet.addCell(SaveProgramMajor);
+                ProgramSheet.addCell(SaveProgramAbbreviation);
+            }
+
+            for(i = 0; i < UnitName.size(); i++)
+            {
+                Label SaveUnitCode = new Label(0, i + 1, UnitCode.get(i));
+                Label SaveUnitName = new Label(1, i + 1, UnitName.get(i));
+                Label SaveUnitType = new Label(2, i + 1, UnitType.get(i));
+                Label SaveUnitMajor = new Label(3, i + 1, UnitMajor.get(i));
+                Label SaveUnitCoRequisiteUnitCode = new Label(4, i + 1, CoRequisiteUnitCode.get(i));
+                Label SaveUnitPreRequisiteUnitCode = new Label(5, i + 1, PreRequisiteUnitCode.get(i));
+
+                UnitSheet.addCell(SaveUnitCode);
+                UnitSheet.addCell(SaveUnitName);
+                UnitSheet.addCell(SaveUnitType);
+                UnitSheet.addCell(SaveUnitMajor);
+                UnitSheet.addCell(SaveUnitCoRequisiteUnitCode);
+                UnitSheet.addCell(SaveUnitPreRequisiteUnitCode);
+            }
+
+            ExcelWorkbook.write(); 
+            ExcelWorkbook.close(); 
+            
         }
 }
